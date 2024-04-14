@@ -1,0 +1,87 @@
+﻿@using MovieManagement.Data.ViewModels;
+@model LoginVM;
+
+@{
+    ViewData["Title"] = "Log in to your account";
+}
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Light background color */
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px; /* Rounded corners */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    }
+
+    .card-title {
+        color: #343a40; /* Dark text color */
+    }
+
+    .form-control {
+        border-radius: 10px; /* Rounded input fields */
+        border: 1px solid #ced4da; /* Border color */
+    }
+
+    .btn-outline-secondary {
+        border-radius: 10px; /* Rounded outline button */
+        border: 1px solid #6c757d; /* Button border color */
+        color: #6c757d; /* Button text color */
+        transition: all 0.3s ease; /* Smooth transition */
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: #6c757d; /* Change background color on hover */
+            color: #fff; /* Change text color on hover */
+        }
+
+    .btn-success {
+        border-radius: 10px; /* Rounded success button */
+        background-color: #28a745; /* Success button color */
+        border: none; /* No border */
+        transition: all 0.3s ease; /* Smooth transition */
+    }
+
+        .btn-success:hover {
+            background-color: #218838; /* Darker background color on hover */
+        }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">Log in to your account</h4>
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Sorry!</strong> - @TempData["Error"]
+                        </div>
+                    }
+                    <form asp-action="Login">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="EmailAddress" class="form-label">Email Address</label>
+                            <input asp-for="EmailAddress" class="form-control" placeholder="Enter your email" />
+                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Password</label>
+                            <input asp-for="Password" class="form-control" type="password" placeholder="Enter your password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a class="btn btn-outline-secondary px-4" asp-controller="Movies" asp-action="Index">Cancel</a>
+                            <button type="submit" class="btn btn-success px-4">Log in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

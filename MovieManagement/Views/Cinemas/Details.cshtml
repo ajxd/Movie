@@ -1,0 +1,115 @@
+﻿@model Cinema
+
+@{
+    ViewData["Title"] = "Details of " + Model.Name;
+}
+
+<style>
+    body {
+        background-color: #f4f4f4;
+    }
+
+    .details-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .cinema-card {
+        width: 100%;
+        max-width: 450px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+        .cinema-card:hover {
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+        }
+
+    .cinema-image {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .cinema-details {
+        padding: 20px;
+        background: #fafafa; /* Slightly off-white for the details background */
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+        .cinema-details h1 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+    .cinema-description {
+        font-size: 16px;
+        color: #666;
+        line-height: 1.5;
+    }
+
+    .buttons {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .btn-custom {
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 16px;
+        color: #fff;
+        background: #007bff; /* Primary blue for action buttons */
+        border: none;
+        transition: background-color 0.2s, transform 0.2s;
+    }
+
+        .btn-custom:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary-custom {
+        background: #6c757d;
+    }
+
+        .btn-secondary-custom:hover {
+            background: #545b62;
+        }
+</style>
+
+<div class="container">
+    <div class="row details-container">
+        <div class="cinema-card">
+            <img src="@Model.Logo" alt="Logo of @Model.Name" class="cinema-image">
+            <div class="cinema-details">
+                <h1>@Model.Name</h1>
+                <p class="cinema-description">@Model.Description</p>
+                <div class="buttons">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-custom" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    }
+                    <a class="btn btn-custom btn-secondary-custom" asp-action="Index">Show All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('LogoPreview');
+            output.src = $("#Logo").val();
+        });
+    </script>
+}
